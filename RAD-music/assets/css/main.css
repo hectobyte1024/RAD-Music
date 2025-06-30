@@ -1,0 +1,522 @@
+:root {
+    --primary: #6c5ce7;
+    --primary-light: #a29bfe;
+    --secondary: #fd79a8;
+    --dark: #2d3436;
+    --dark-light: #636e72;
+    --light: #f5f6fa;
+    --light-dark: #dfe6e9;
+    --success: #00b894;
+    --danger: #d63031;
+    --warning: #fdcb6e;
+    --info: #0984e3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--light-dark);
+    background-color: var(--primary);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.navbar-search {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 20px;
+}
+
+.navbar-search input {
+    width: 100%;
+    padding: 8px 15px;
+    border: 1px solid var(--light-dark);
+    border-radius: 20px;
+    outline: none;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links a {
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links a i {
+    margin-right: 5px;
+}
+
+.navbar-links a.active {
+    color: var(--secondary);
+}
+
+.user-avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    color: var(--dark);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--primary);
+    padding: 0;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    color: var(--dark-light);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.btn-icon:hover {
+    color: var(--primary);
+}
+
+.post {
+    background-color: white;
+    border: 1px solid var(--light-dark);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.post-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.post-user {
+    flex: 1;
+}
+
+.post-user h4 {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.post-user small {
+    color: var(--dark-light);
+    font-size: 12px;
+}
+
+.post-actions {
+    position: relative;
+}
+
+.post-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 10;
+}
+
+.post-menu.active {
+    display: block;
+}
+
+.post-menu-item {
+    display: block;
+    padding: 8px 16px;
+    text-align: left;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.post-menu-item:hover {
+    background-color: var(--light);
+}
+
+.post-content p {
+    margin-bottom: 15px;
+}
+
+.post-track {
+    margin-bottom: 15px;
+}
+
+.track-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--light);
+    border-radius: 4px;
+}
+
+.track-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-info h4 {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.track-info p {
+    font-size: 12px;
+    color: var(--dark-light);
+    margin-bottom: 0;
+}
+
+.play-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.post-media {
+    margin-bottom: 15px;
+}
+
+.post-media img,
+.post-media video {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.post-media audio {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.post-footer {
+    display: flex;
+    border-top: 1px solid var(--light-dark);
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.post-footer button {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.post-footer button i {
+    margin-right: 5px;
+}
+
+.post-footer button.liked {
+    color: var(--secondary);
+}
+
+.post-comments {
+    border-top: 1px solid var(--light-dark);
+    padding-top: 10px;
+}
+
+.comment {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.comment img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-content h5 {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.comment-content p {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.comment-content small {
+    color: var(--dark-light);
+    font-size: 12px;
+}
+
+.add-comment-form {
+    display: flex;
+    margin-top: 10px;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--light-dark);
+    border-radius: 4px;
+    outline: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    display: none;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--light-dark);
+    border-radius: 4px;
+    outline: none;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    margin-left: 10px;
+}
+
+.footer {
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 40px 0 20px;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.footer-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: var(--light);
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+}
+
+.social-links a {
+    color: var(--secondary);
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    
+    .navbar-search {
+        margin: 10px 0;
+        width: 100%;
+    }
+    
+    .navbar-links {
+        width: 100%;
+        justify-content: space-around;
+    }
+    
+    .navbar-links a {
+        margin: 0;
+    }
+    
+    .footer-section {
+        flex: 100%;
+    }
+}
+
+/* Utility classes */
+.text-primary {
+    color: var(--primary) !important;
+}
+.text-secondary {
+    color: var(--secondary) !important;
+}
+.text-dark {
+    color: var(--dark) !important;
+}
+.text-light {
+    color: var(--light) !important;
+}

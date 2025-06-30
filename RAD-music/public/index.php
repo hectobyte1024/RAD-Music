@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/auth_functions.php';
@@ -11,8 +16,6 @@ $basePath = str_replace('/public', '', BASE_URL);
 $route = str_replace($basePath, '', $request);
 $route = explode('?', $route)[0];
 
-// Include header
-require_once __DIR__ . '/../includes/header.php';
 
 // Route handling
 switch ($route) {
@@ -37,10 +40,7 @@ switch ($route) {
         break;
     default:
         http_response_code(404);
-        require __DIR__ . '/../templates/404.php';
         break;
 }
 
-// Include footer
-require_once __DIR__ . '/../includes/footer.php';
 ?>

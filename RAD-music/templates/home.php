@@ -1,90 +1,98 @@
 <?php
 
-require_once __DIR__ . '/../api/auth.php';
-
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-$user = isLoggedIn() ? (new User())->getProfile($_SESSION['user_id']) : null;
-$recommendations = isLoggedIn() ? (new RecommendationEngine())->getForUser($_SESSION['user_id'], 5) : [];
+$title = "RAD Music Network";
+$jsFiles = ['home.js'];
+require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="home-container">
-    <?php if (isLoggedIn()): ?>
-        <div class="left-sidebar">
-            <div class="user-card">
-                <img src="<?= htmlspecialchars($user['avatar_url'] ?? '/assets/images/default-avatar.jpg') ?>" 
-                     alt="<?= htmlspecialchars($user['username']) ?>">
-                <h3><?= htmlspecialchars($user['username']) ?></h3>
-                <div class="stats">
-                    <span><?= $user['followers'] ?> Followers</span>
-                    <span><?= $user['following'] ?> Following</span>
-                </div>
+<div class="home-hero">
+    <div class="hero-content">
+        <h1>Discover and Share Your Music</h1>
+        <p>Connect with music lovers around the world. Find new tracks, share your favorites, and stay updated with the latest music news.</p>
+        
+        <?php if (!isLoggedIn()): ?>
+            <div class="hero-actions">
+                <a href="/RAD-music/templates/register.php" class="btn btn-primary btn-lg">Join Now</a>
+                <a href="/RAD-music/templates/login.php" class="btn btn-outline btn-lg">Sign In</a>
             </div>
-            
-            <div class="recommendations">
-                <h3>Recommended For You</h3>
-                <?php foreach ($recommendations as $track): ?>
-                    <div class="track">
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php if (!isLoggedIn()): ?>
+    <div class="features-section">
+        <div class="feature">
+            <i class="fas fa-music"></i>
+            <h3>Discover Music</h3>
+            <p>Get personalized recommendations based on your listening habits.</p>
+        </div>
+        
+        <div class="feature">
+            <i class="fas fa-users"></i>
+            <h3>Connect with Others</h3>
+            <p>Follow friends and artists to see what they're listening to.</p>
+        </div>
+        
+        <div class="feature">
+            <i class="fas fa-newspaper"></i>
+            <h3>Stay Updated</h3>
+            <p>Get the latest music news and chart updates.</p>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="home-content">
+        <div class="home-sidebar">
+            <div class="trending-tracks">
+                <h3>Trending Now</h3>
+                <?php foreach (getTrendingTracks(5) as $track): ?>
+                    <div class="track-card">
                         <img src="<?= htmlspecialchars($track['cover_url']) ?>" alt="Album cover">
-                        <div>
+                        <div class="track-info">
                             <h4><?= htmlspecialchars($track['title']) ?></h4>
                             <p><?= htmlspecialchars($track['artist']) ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-        </div>
-    <?php endif; ?>
-    
-    <main class="main-content">
-        <?php if (isLoggedIn()): ?>
-            <div class="post-creator">
-                <form action="/api/posts/create" method="POST" enctype="multipart/form-data">
-                    <textarea name="content" placeholder="What's bumping today?"></textarea>
-                    <div class="post-actions">
-                        <input type="file" name="media[]" multiple accept="image/*,video/*,audio/*">
-                        <button type="button" class="attach-music">Attach Music</button>
-                        <button type="submit" class="post-button">Post</button>
+            
+            <div class="popular-artists">
+                <h3>Popular Artists</h3>
+                <?php foreach (getPopularArtists(5) as $artist): ?>
+                    <div class="artist-card">
+                        <div class="artist-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="artist-info">
+                            <h4><?= htmlspecialchars($artist['artist']) ?></h4>
+                            <p><?= $artist['track_count'] ?> tracks</p>
+                        </div>
                     </div>
-                </form>
+                <?php endforeach; ?>
             </div>
-        <?php endif; ?>
-        
-        <div class="feed">
-            <?php 
-            if (isLoggedIn()) {
-                $posts = (new Post())->getFeedPosts($_SESSION['user_id']);
-                foreach ($posts as $post) {
-                    include __DIR__ . '/partials/post.php';
-                }
-            } else {
-                include __DIR__ . '/partials/welcome.php';
-            }
-            ?>
-        </div>
-    </main>
-    
-    <div class="right-sidebar">
-        <div class="news-feed">
-            <h3>Music News</h3>
-            <?php 
-            $news = (new News())->getTrending(5);
-            foreach ($news as $item) {
-                include __DIR__ . '/partials/news_item.php';
-            }
-            ?>
         </div>
         
-        <div class="top-charts">
-            <h3>Billboard Top 5</h3>
-            <?php 
-            $charts = (new Charts())->getCurrentTop('hot-100', 5);
-            foreach ($charts as $chartEntry) {
-                include __DIR__ . '/partials/chart_item.php';
-            }
-            ?>
+        <div class="home-main">
+            <div class="activity-feed">
+                <h2>Recent Activity</h2>
+                <?php foreach (getRecentActivity($_SESSION['user_id'], 10) as $activity): ?>
+                    <div class="activity-item">
+                        <img src="<?= htmlspecialchars($activity['actor_avatar'] ?? '/assets/images/default-avatar.jpg') ?>" alt="User">
+                        <div class="activity-content">
+                            <p>
+                                <strong><?= htmlspecialchars($activity['actor_username']) ?></strong>
+                                <?= getActivityDescription($activity) ?>
+                            </p>
+                            <small><?= timeAgo($activity['created_at']) ?></small>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
-</div>
+<?php endif; ?>
+
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>

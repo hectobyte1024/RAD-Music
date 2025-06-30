@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/classes/News.php';
 require_once __DIR__ . '/../app/classes/Charts.php';
@@ -125,9 +130,10 @@ try {
 
 echo json_encode($response);
 
-function isAdmin() {
-    // Implement your admin check logic here
-    // This might check a database field or session variable
-    return $_SESSION['user_id'] == 1; // Example: user ID 1 is admin
-}
+/**
+ * Check if the current user is an administrator
+ * 
+ * @return bool True if user is admin, false otherwise
+ * @throws PDOException If database query fails
+ */
 ?>

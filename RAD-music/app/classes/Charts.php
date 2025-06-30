@@ -1,12 +1,24 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/constants.php';
 
 class Charts {
     private $db;
     
+    // Add this to your Charts class constructor
     public function __construct() {
         $this->db = Database::getInstance();
+        
+        // Send favicon headers if requesting icon
+        if (strpos($_SERVER['REQUEST_URI'], 'favicon.ico') !== false) {
+            header('Content-Type: image/x-icon');
+            exit(base64_decode('AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...')); // Truncated base64
+        }
     }
     
     public function getCurrentTop($chartName = 'hot-100', $limit = 10) {
@@ -173,18 +185,6 @@ class Charts {
         $stmt->execute([$trackId, $score, $direction]);
     }
     
-    private function scrapeBillboardChart($chartName) {
-        // This would be implemented with actual scraping logic
-        // For now, return mock data structure
-        
-        return [
-            'name' => $chartName,
-            'date' => date('Y-m-d'),
-            'entries' => [
-                // Array of track entries with position, track info, etc.
-            ]
-        ];
-    }
     
     public function getTopArtists($limit = 10, $timeRange = 'month') {
         $validRanges = ['week', 'month', 'year', 'all'];
